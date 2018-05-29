@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import TokenManager from '../utils/token-manager';
 
 class Login extends React.Component {
   constructor(props) {
@@ -28,7 +29,8 @@ class Login extends React.Component {
       password: this.state.password,
     })
       .then((response) => {
-        this.props.onLogin(response.data);
+        TokenManager.setToken(response.data.token);
+        this.props.onLogin();
         this.props.history.push('/');
       })
       .catch((error) => {

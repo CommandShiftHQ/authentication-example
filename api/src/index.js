@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-const { auth, users } = require('./routes');
+const { auth, users, secrets } = require('./routes');
+const authenticate = require('./middleware/authenticate');
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use('/auth', auth);
 app.use('/users', users);
+app.use('/secrets', authenticate, secrets)
 
 mongoose.connect(process.env.DATABASE_URL, () => {
   console.log('connected to database');

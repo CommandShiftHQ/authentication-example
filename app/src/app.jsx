@@ -1,44 +1,71 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
+import AuthRoute from './components/auth-route';
+import NavBar from './components/navbar';
 import Home from './components/home';
 import Login from './components/login';
 import SignUp from './components/sign-up';
+import Secrets from './components/secrets';
+
+import TokenManager from './utils/token-manager';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      user: TokenManager.isTokenValid() ? TokenManager.getTokenPayload() : null,
     };
 
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.isLoggedIn = this.isLoggedIn.bind(this);
   }
 
-  handleLogin(user) {
-    this.setState({ user });
+  handleLogin() {
+    this.setState({ user: TokenManager.getTokenPayload() });
+  }
+
+  handleLogout() {
+    TokenManager.removeToken();
+    this.setState({ user: null });
+  }
+
+  isLoggedIn() {
+    return Boolean(this.state.user) && TokenManager.isTokenValid();
   }
 
   render() {
     return (
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={props => (this.state.user ?
-            <Home {...props} user={this.state.user} /> :
-            <Redirect to="/login" />
-          )}
+      <React.Fragment>
+        <NavBar
+          isLoggedIn={this.isLoggedIn()}
+          user={this.state.user}
+          onLogout={this.handleLogout}
         />
-        <Route
-          exact
-          path="/login"
-          render={props => (
-            <Login {...props} onLogin={this.handleLogin} />
-          )}
-        />
-        <Route exact path="/sign-up" component={SignUp} />
-      </Switch>
+        <Switch>
+          <AuthRoute
+            exact
+            path="/"
+            component={Home}
+            authenticate={this.isLoggedIn}
+          />
+          <AuthRoute
+            exact
+            path="/secrets"
+            component={Secrets}
+            authenticate={this.isLoggedIn}
+          />
+          <Route
+            exact
+            path="/login"
+            render={props => (
+              <Login {...props} onLogin={this.handleLogin} />
+            )}
+          />
+          <Route exact path="/sign-up" component={SignUp} />
+        </Switch>
+      </React.Fragment>
     );
   }
 }

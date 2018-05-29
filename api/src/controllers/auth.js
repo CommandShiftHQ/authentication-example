@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const login = (req, res) => {
@@ -9,7 +10,20 @@ const login = (req, res) => {
         });
       } else {
         if (user.validatePassword(req.body.password)) {
-          res.status(200).json(user);
+          const payload = {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+          };
+          
+          jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '10m' }, (err, token) => {
+            if (err) {
+              res.sendStatus(500);
+            } else {
+              res.status(200).json({ token }); 
+            }
+          });
         } else {
           res.status(401).json({
             message: 'The email/password combination is incorrect.',
