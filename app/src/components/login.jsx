@@ -64,13 +64,16 @@ class Login extends React.Component {
             />
           </label>
         </div>
-        <div>
-          <button onClick={this.handleLogin}>Login</button> or <Link to="/sign-up">Sign Up</Link>
-        </div>
         {
           this.state.errorMessage &&
           <div><span>{this.state.errorMessage}</span></div>
         }
+        <div>
+          <button onClick={this.handleLogin}>Login</button> or <Link to="/sign-up">Sign Up</Link>
+        </div>
+        <div>
+          <a href={`https://github.com/login/oauth/authorize?scope=read:user,user:email&client_id=${process.env.GITHUB_CLIENT_ID}`}>Login with Github</a>
+        </div>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import Home from './components/home';
 import Login from './components/login';
 import SignUp from './components/sign-up';
 import Secrets from './components/secrets';
+import GithubLogin from './components/github-login';
 
 import TokenManager from './utils/token-manager';
 
@@ -64,6 +65,13 @@ class App extends React.Component {
             )}
           />
           <Route exact path="/sign-up" component={SignUp} />
+          <Route
+            exact
+            path="/login-github"
+            render={props => (
+              <GithubLogin {...props} onLogin={this.handleLogin} />
+            )}
+          />
         </Switch>
       </React.Fragment>
     );
