@@ -43,6 +43,9 @@ const login = (req, res) => {
 }
 
 const github = (req, res) => {
+  let accessToken
+
+  // exchange authorization code for access token
   request.post('https://github.com/login/oauth/access_token', {
     body: {
       client_id: process.env.GITHUB_CLIENT_ID,
@@ -51,18 +54,31 @@ const github = (req, res) => {
     },
     json: true,
   })
-  .then(response => request.get('https://api.github.com/user', {
-    headers: {
-      'Authorization': `token ${response.access_token}`,
-      'User-Agent': `authentication-example`
-    },
-    json: true,
-  }))
-  .then(({ name, email }) => User.findOneOrCreate({ email }, {
+  .then(response => {
+    accessToken = response.access_token // save for later
+    
+    // use the access token to retrieve information about the GitHub user
+    return request.get('https://api.github.com/user', {
+      headers: {
+        'Authorization': `token ${accessToken}`,
+        'User-Agent': `authentication-example`
+      },
+      json: true,
+    })
+  })
+  // create a user (if one doesn't exist) using the retrieved data from the GitHub user
+  .then(({ email, name }) => User.findOneOrCreate({ email }, {
     email,
     firstName: name.substr(0, name.indexOf(' ')),
     lastName: name.substr(name.indexOf(' ') + 1),
   }))
+  // update the user's access token (so we can keep it for requests later)
+  .then((user) => {
+    user.set({ accessToken })
+    
+    return user.save()
+  })
+  // return a JWT to the user (we don't want to reveal the access_token to the client)
   .then((user) => {
     createJWT(user, (err, token) => {
       if (err) {
