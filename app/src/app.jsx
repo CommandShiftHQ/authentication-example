@@ -67,7 +67,7 @@ class App extends React.Component {
           <Route exact path="/sign-up" component={SignUp} />
           <Route
             exact
-            path="/login-github"
+            path="/github-login"
             render={props => (
               <GithubLogin {...props} onLogin={this.handleLogin} />
             )}
