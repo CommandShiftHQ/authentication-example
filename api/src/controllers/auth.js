@@ -69,8 +69,8 @@ const github = (req, res) => {
   // create a user (if one doesn't exist) using the retrieved data from the GitHub user
   .then(({ email, name }) => User.findOneOrCreate({ email }, {
     email,
-    firstName: name.substr(0, name.indexOf(' ')),
-    lastName: name.substr(name.indexOf(' ') + 1),
+    firstName: (name && name.substr(0, name.indexOf(' '))) || '',
+    lastName: (name && name.substr(name.indexOf(' ') + 1)) || '',
   }))
   // update the user's access token (so we can keep it for requests later)
   .then((user) => {
