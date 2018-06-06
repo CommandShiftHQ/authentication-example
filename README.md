@@ -27,7 +27,7 @@ This would make localhost:8080 available at `https://<replace_me>.localtunnel.me
 - Create an application on Github - [https://github.com/settings/applications/new](https://github.com/settings/applications/new)
 - Set *application name* as **authentication-example**
 - Set *homepage url* as `https://<replace_me>.localtunnel.me`
-- Set *callback url* as `https://<replace_me>.localtunnel.me`
+- Set *callback url* as `https://<replace_me>.localtunnel.me/github-login`
 - take note of your client id and client secret - you will need them shortly
 
 ## Initial Setup for `/api` directory:
