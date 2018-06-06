@@ -9,7 +9,7 @@ React code is in `/app` directory
 - Create an application on Github - [https://github.com/settings/applications/new](https://github.com/settings/applications/new)
 - Set *application name* as **authentication-example**
 - Set *homepage url* as **localhost:8080**
-- Set *callback url* as **localhost:8080/login-github**
+- Set *callback url* as **localhost:8080/github-login**
 - take note of your client id and client secret - you will need them shortly
 
 ## Initial Setup for `/api` directory:
