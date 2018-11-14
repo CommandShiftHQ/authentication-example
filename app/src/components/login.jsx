@@ -24,7 +24,7 @@ class Login extends React.Component {
   }
 
   handleLogin() {
-    axios.post('http://127.0.0.1:3000/auth/login', {
+    axios.post('http://127.0.0.1:6666/auth/login', {
       email: this.state.email,
       password: this.state.password,
     })

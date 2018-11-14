@@ -19,7 +19,7 @@ app.use('/secrets', authenticate, secrets)
 
 mongoose.connect(process.env.DATABASE_URL, () => {
   console.log('connected to database');
-  app.listen(3000, () => {
-    console.log('server listening on http://127.0.0.1:3000');
+  app.listen(6666, () => {
+    console.log('server listening on http://127.0.0.1:6666');
   });
 });

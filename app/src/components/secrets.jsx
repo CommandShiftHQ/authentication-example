@@ -24,7 +24,7 @@ class Secrets extends React.Component {
   }
 
   getSecrets() {
-    axios.get('http://127.0.0.1:3000/secrets', {
+    axios.get('http://127.0.0.1:6666/secrets', {
       headers: { Authorization: TokenManager.getToken() },
     })
       .then((response) => {
@@ -41,7 +41,7 @@ class Secrets extends React.Component {
   }
 
   handleSubmit() {
-    axios.post('http://127.0.0.1:3000/secrets', {
+    axios.post('http://127.0.0.1:6666/secrets', {
       message: this.state.message,
     }, {
       headers: { Authorization: TokenManager.getToken() },
