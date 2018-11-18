@@ -4,7 +4,7 @@
   "description": "react bootstrap application",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --public https://mcrcodes.localtunnel.me"
+    "start": "webpack-dev-server"
   },
   "keywords": [
     "react"
