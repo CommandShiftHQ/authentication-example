@@ -22,7 +22,7 @@ class SignUp extends React.Component {
   }
 
   handleLogin() {
-    axios.post('http://127.0.0.1:6666/users', {
+    axios.post('http://127.0.0.1:3000/users', {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
