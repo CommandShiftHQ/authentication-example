@@ -43,6 +43,9 @@ You can see `.env.example` files in both the `/api` and `/app` folders which wil
 ## Setup for app
 - Create a `.env` in the `/app` directory with a `GITHUB_CLIENT_ID` the same as above.
 
+**Alternately:** The docker compose yaml in the root directory will start a mongodb container, and correctly configure the express app. 
+
 ## Running the App:
-- First CMD; cd to `/api` and run `npm start` to start API code
+- First CMD; cd to `/api` and run `npm start` to start API code, **or** run `docker-compose up -d` from the project root
 - Second CMD; cd to `/app` and run `npm start` to start React code
+- If using docker-compose, you will need to run 'docker-compose build' after changing branches.
