@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+
+  express-app:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+    environment:
+      - DATABASE_URL=mongodb://database:27017/auth-example
+      - JWT_SECRET=superSecret 
+
+  database:
+    image: mongo

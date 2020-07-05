@@ -5,10 +5,20 @@ const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
-  password: {
-    type: String,
-    set: password => bcrypt.hashSync(password, 10),
-  },
+  password: String,
+});
+
+userSchema.pre('save', function hashPassword(next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+  return bcrypt.hash(this.password, 10, (error, hash) => {
+    if (error) {
+      return next(error);
+    }
+    this.password = hash;
+    return next();
+  });
 });
 
 userSchema.methods.validatePassword = function validatePassword(password) {
