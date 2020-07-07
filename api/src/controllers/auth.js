@@ -44,7 +44,6 @@ const login = (req, res) => {
 
 const github = (req, res) => {
   let accessToken
-
   // exchange authorization code for access token
   request.post('https://github.com/login/oauth/access_token', {
     body: {
@@ -56,7 +55,6 @@ const github = (req, res) => {
   })
   .then(response => {
     accessToken = response.access_token // save for later
-    
     // use the access token to retrieve information about the GitHub user
     return request.get('https://api.github.com/user', {
       headers: {
@@ -75,7 +73,6 @@ const github = (req, res) => {
   // update the user's access token (so we can keep it for requests later)
   .then((user) => {
     user.set({ accessToken })
-    
     return user.save()
   })
   // return a JWT to the user (we don't want to reveal the access_token to the client)
@@ -90,7 +87,7 @@ const github = (req, res) => {
   })
   .catch((error) => {
     console.log(error.message);
-    res.sendStatus(200);
+    res.sendStatus(500);
   })
 }
 

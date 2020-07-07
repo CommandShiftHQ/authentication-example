@@ -17,7 +17,6 @@
     "dotenv": "^5.0.1"
   },
   "scripts": {
-    "localtunnel": "npx localtunnel -h 'http://serverless.social'  --port 8080 --subdomain oath-demo",
     "start":  "nodemon -r dotenv/config index.js"
   },
   "author": "",

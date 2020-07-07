@@ -12,9 +12,9 @@ services:
       - database
     environment:
       - DATABASE_URL=mongodb://database:27017/auth-example
-      - JWT_SECRET="" 
-      - GITHUB_CLIENT_ID=""
-      - GITHUB_CLIENT_SECRET=""
+      - JWT_SECRET=supersecret 
+      - GITHUB_CLIENT_ID=''
+      - GITHUB_CLIENT_SECRET=''
 
   database:
     image: mongo

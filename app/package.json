@@ -4,6 +4,7 @@
   "description": "react bootstrap application",
   "main": "index.js",
   "scripts": {
+    "localtunnel": "npx localtunnel -h 'http://serverless.social' --port 8080 --subdomain mcrcodes",
     "start": "webpack-dev-server"
   },
   "keywords": [
