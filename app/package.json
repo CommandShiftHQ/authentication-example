@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/MCRcodes/react-bootstrap#readme",
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.2",
     "prop-types": "^15.6.1",
     "raf": "^3.4.0",
     "react": "^16.13.1",
